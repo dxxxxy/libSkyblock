@@ -36,3 +36,12 @@ SBPlayer p = new SBPlayer(player);
 > Refer to [TestMod](https://github.com/DxxxxY/libSkyblock/blob/master/src/main/java/studio/dreamys/test/TestMod.java) for this demo.
 
 ![img.png](img/img.png)
+
+## Credits
+#### Some components/inspirations were taken from these open-source projects.
+
+Software | License
+------------ | -------------
+[SkyblockAddons](https://github.com/BiscuitDevelopment/SkyblockAddons/) | [MIT License](https://github.com/BiscuitDevelopment/SkyblockAddons/blob/master/LICENSE)
+[Danker's Skyblock Mod](https://github.com/bowser0000/SkyblockMod/) | [GPL-3.0 License](https://github.com/bowser0000/SkyblockMod/blob/master/LICENSE)
+[Cowlection](https://github.com/cow-mc/Cowlection/) | [MIT License](https://github.com/cow-mc/Cowlection/blob/master/LICENSE)
