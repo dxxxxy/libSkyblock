@@ -6,6 +6,9 @@ import net.minecraft.scoreboard.ScoreObjective;
 import java.util.List;
 
 public class ServerUtils {
+    /**
+     * Checks if the player is on Hypixel.
+     * */
     public static boolean isOnHypixel() {
         Minecraft mc = Minecraft.getMinecraft();
         if (mc != null && mc.theWorld != null && !mc.isSingleplayer()) {
@@ -14,20 +17,24 @@ public class ServerUtils {
         return false;
     }
 
+    /**
+     * Checks if the player is on Skyblock.
+     * */
     public static boolean isOnSkyblock() {
         Minecraft mc = Minecraft.getMinecraft();
         if (mc != null && mc.theWorld != null && !mc.isSingleplayer() && isOnHypixel()) {
             ScoreObjective scoreboardObj = mc.theWorld.getScoreboard().getObjectiveInDisplaySlot(1);
             if (scoreboardObj != null) {
                 String scObjName = ScoreboardUtils.cleanSB(scoreboardObj.getDisplayName());
-                if (scObjName.contains("SKYBLOCK")) {
-                    return true;
-                }
+                return scObjName.contains("SKYBLOCK");
             }
         }
         return false;
     }
 
+    /**
+     * Checks if the player is in Dungeons.
+     * */
     public static boolean isOnDungeons() {
         if (isOnSkyblock()) {
             List<String> scoreboard = ScoreboardUtils.getSidebarLines();
@@ -39,5 +46,10 @@ public class ServerUtils {
             }
         }
         return false;
+    }
+
+    public String getServerName() {
+
+        return null;
     }
 }

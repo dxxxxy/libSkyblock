@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ScoreboardUtils{
-
     public static String cleanSB(String scoreboard) {
         char[] nvString = StringUtils.stripControlCodes(scoreboard).toCharArray();
         StringBuilder cleaned = new StringBuilder();
@@ -40,8 +39,7 @@ public class ScoreboardUtils{
 
         Collection<Score> scores = scoreboard.getSortedScores(objective);
         List<Score> list = scores.stream()
-                .filter(input -> input != null && input.getPlayerName() != null && !input.getPlayerName()
-                        .startsWith("#"))
+                .filter(input -> input != null && input.getPlayerName() != null && !input.getPlayerName().startsWith("#"))
                 .collect(Collectors.toList());
 
         if (list.size() > 15) {

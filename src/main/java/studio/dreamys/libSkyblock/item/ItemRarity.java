@@ -2,6 +2,7 @@ package studio.dreamys.libSkyblock.item;
 
 import net.minecraft.util.EnumChatFormatting;
 import org.apache.commons.lang3.text.WordUtils;
+import studio.dreamys.libSkyblock.util.StringUtils;
 
 public enum ItemRarity {
     COMMON(EnumChatFormatting.WHITE),
@@ -21,7 +22,17 @@ public enum ItemRarity {
         this.colorCode = colorCode;
     }
 
+    /**
+     * Gets the name of the rarity as a pretty {@link String}.
+     * */
     public String getName() {
-        return WordUtils.capitalizeFully(name().replaceAll("_", " "));
+        return StringUtils.prettify(name());
+    }
+
+    /**
+     * Gets the color code of the rarity as an {@link EnumChatFormatting}.
+     * */
+    public EnumChatFormatting getColorCode() {
+        return colorCode;
     }
 }

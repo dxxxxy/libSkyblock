@@ -2,6 +2,7 @@ package studio.dreamys.test;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import studio.dreamys.libSkyblock.item.SBItem;
+import studio.dreamys.libSkyblock.player.SBPlayer;
 import studio.dreamys.libSkyblock.util.ServerUtils;
 
 import java.awt.*;
@@ -29,24 +31,62 @@ public class TestMod {
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent e) {
         if (e.type == RenderGameOverlayEvent.ElementType.TEXT) {
+            ItemStack stack = Minecraft.getMinecraft().thePlayer.getHeldItem();
+            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+            if (stack == null || player == null || !ServerUtils.isOnSkyblock()) return;
+
             y = 0;
-            ItemStack currentlyHeld = Minecraft.getMinecraft().thePlayer.getHeldItem();
-            if (currentlyHeld == null || !ServerUtils.isOnSkyblock()) return;
-            SBItem item = new SBItem(currentlyHeld);
-            if (item.getRarity() != null) drawText("getRarity: " + item.getRarity().getName());
-            if (item.getType() != null) drawText("getType: " + item.getType().getName());
-            if (item.getReforge() != null) drawText("getReforge: " + item.getReforge());
-//            drawText(item.getLore().toString());
-            if (item.getRune() != null) drawText("getRune: " + item.getRune().getKey() + ": " + item.getRune().getValue());
-            drawText("getRarityUpgradeCount: " + item.getRarityUpgradeCount() + "");
-            drawText("getDungeonStarsCount: " + item.getDungeonStarsCount() + "");
-            if (item.getID() != null) drawText("getID: " + item.getID());
-            if (item.getUUID() != null) drawText("getUUID: " + item.getUUID());
-            drawText("isDonatedMuseum: " + item.isDonatedMuseum() + "");
-            if (item.getOriginTag() != null) drawText("getOriginTag: " + item.getOriginTag());
-            if (item.getTimestamp() != null) drawText("getTimestamp: " + item.getTimestamp());
-//            drawText(item.getEnchantments().toString());
-            drawText("getHotPotatoBookCount: " + item.getHotPotatoBookCount() + "");
+            SBItem i = new SBItem(stack);
+            drawText("item >"); //start
+            if (i.getRarity() != null) drawText("getRarity: " + i.getRarity().getName());
+            if (i.getReforge() != null) drawText("getReforge: " + i.getReforge());
+            drawText("isMaterialForRecipe: " + i.isMaterialForRecipe());
+            if (i.getLore() != null) drawText("getLore: " + i.getLore());
+            if (i.getRune() != null) drawText("getRune: " + i.getRune().getKey() + ": " + i.getRune().getValue());
+            drawText("getRarityUpgradeCount: " + i.getRarityUpgradeCount());
+            drawText("getDungeonStarsCount: " + i.getDungeonStarsCount());
+            if (i.getID() != null) drawText("getID: " + i.getID());
+            if (i.getUUID() != null) drawText("getUUID: " + i.getUUID());
+            if (i.getAbilityScrolls() != null) drawText("getAbilityScrolls: " + i.getAbilityScrolls());
+            if (i.getGems() != null) drawText("getGems: " + i.getGems());
+            drawText("isDonatedMuseum: " + i.isDonatedMuseum());
+            if (i.getOriginTag() != null) drawText("getOriginTag: " + i.getOriginTag());
+            if (i.getTimestamp() != null) drawText("getTimestamp: " + i.getTimestamp());
+            if (i.getTimestamp2() != null) drawText("getTimestamp2: " + i.getTimestamp2());
+            if (i.getEnchantments() != null) drawText("getEnchantments: " + i.getEnchantments());
+            drawText("getHotPotatoBookCount: " + i.getHotPotatoBookCount());
+            drawText("isDrill: " + i.isDrill());
+
+            drawText(""); //enter
+
+            SBPlayer p = new SBPlayer(player);
+            drawText("player >"); //start
+            drawText("getHealth: " + p.getHealth());
+            drawText("getMaxHealth: " + p.getMaxHealth());
+            drawText("getMana: " + p.getMana());
+            drawText("getMaxMana: " + p.getMaxMana());
+            drawText("getDefense: " + p.getDefense());
+            drawText("getEffectiveHealth: " + p.getEffectiveHealth());
+            drawText("getSpeed: " + p.getSpeed());
+            drawText("getStrength: " + p.getStrength());
+            drawText("getCritChance: " + p.getCritChance());
+            drawText("getCritDamage: " + p.getCritDamage());
+            drawText("getAttackSpeed: " + p.getAttackSpeed());
+            drawText("getGems: " + p.getGems());
+            drawText("hasPiggy: " + p.hasPiggy());
+            drawText("isCookieActive: " + p.isCookieActive());
+            drawText("cookieMillis: " + p.cookieMillis());
+            drawText("isGodpotionActive: " + p.isGodpotionActive());
+            drawText("godpotionMillis: " + p.godpotionMillis());
+            drawText("getPurse: " + p.getPurse());
+            drawText("getBank: " + p.getBank());
+            if (p.getIsland() != null) drawText("getIsland: " + p.getIsland());
+            if (p.getIslandLocation() != null) drawText("getIslandLocation: " + p.getIslandLocation());
+            if (p.getHeldItem() != null) drawText("getHeldItem: " + p.getHeldItem());
+            if (p.getHelmet() != null) drawText("getHelmet: " + p.getHelmet());
+            if (p.getChestplate() != null) drawText("getChestplate: " + p.getChestplate());
+            if (p.getLeggings() != null) drawText("getLeggings: " + p.getLeggings());
+            if (p.getBoots() != null) drawText("getBoots: " + p.getBoots());
         }
     }
 
