@@ -14,6 +14,7 @@ import studio.dreamys.libSkyblock.player.SBPlayer;
 import studio.dreamys.libSkyblock.util.ServerUtils;
 
 import java.awt.*;
+import java.math.BigDecimal;
 
 @Mod(modid = TestMod.MODID, name = TestMod.NAME, version = TestMod.VERSION)
 public class TestMod {
@@ -37,7 +38,7 @@ public class TestMod {
 
             y = 0;
             SBItem i = new SBItem(stack);
-            drawText("item >"); //start
+            drawText("SBItem >"); //start
             if (i.getRarity() != null) drawText("getRarity: " + i.getRarity().getName());
             if (i.getReforge() != null) drawText("getReforge: " + i.getReforge());
             drawText("isMaterialForRecipe: " + i.isMaterialForRecipe());
@@ -60,13 +61,14 @@ public class TestMod {
             drawText(""); //enter
 
             SBPlayer p = new SBPlayer(player);
-            drawText("player >"); //start
+            drawText("SBPlayer >"); //start
             drawText("getHealth: " + p.getHealth());
             drawText("getMaxHealth: " + p.getMaxHealth());
             drawText("getMana: " + p.getMana());
             drawText("getMaxMana: " + p.getMaxMana());
             drawText("getDefense: " + p.getDefense());
-            drawText("getEffectiveHealth: " + p.getEffectiveHealth());
+            drawText("getEffectiveHealth: " + BigDecimal.valueOf(p.getEffectiveHealth()).toPlainString());
+            drawText("getEffectiveMaxHealth: " + BigDecimal.valueOf(p.getEffectiveMaxHealth()).toPlainString());
             drawText("getSpeed: " + p.getSpeed());
             drawText("getStrength: " + p.getStrength());
             drawText("getCritChance: " + p.getCritChance());
@@ -75,11 +77,12 @@ public class TestMod {
             drawText("getGems: " + p.getGems());
             drawText("hasPiggy: " + p.hasPiggy());
             drawText("isCookieActive: " + p.isCookieActive());
-            drawText("cookieMillis: " + p.cookieMillis());
+            drawText("getCookieMillis: " + p.getCookieMillis());
             drawText("isGodpotionActive: " + p.isGodpotionActive());
-            drawText("godpotionMillis: " + p.godpotionMillis());
-            drawText("getPurse: " + p.getPurse());
-            drawText("getBank: " + p.getBank());
+            drawText("getGodpotionMillis: " + p.getGodpotionMillis());
+            drawText("getPurse: " + BigDecimal.valueOf(p.getPurse()).toPlainString());
+            drawText("getBits: " + p.getBits());
+            drawText("getBank: " + BigDecimal.valueOf(p.getBank()).toPlainString());
             if (p.getIsland() != null) drawText("getIsland: " + p.getIsland());
             if (p.getIslandLocation() != null) drawText("getIslandLocation: " + p.getIslandLocation());
             if (p.getHeldItem() != null) drawText("getHeldItem: " + p.getHeldItem());
@@ -87,6 +90,14 @@ public class TestMod {
             if (p.getChestplate() != null) drawText("getChestplate: " + p.getChestplate());
             if (p.getLeggings() != null) drawText("getLeggings: " + p.getLeggings());
             if (p.getBoots() != null) drawText("getBoots: " + p.getBoots());
+
+            drawText(""); //enter
+
+            drawText("ServerUtils >"); //start
+            drawText("getServerName: " + ServerUtils.getServerName());
+            drawText("isInDungeons: " + ServerUtils.isInDungeons());
+            drawText("isOnSkyblock: " + ServerUtils.isOnSkyblock());
+            drawText("isOnHypixel: " + ServerUtils.isOnHypixel());
         }
     }
 

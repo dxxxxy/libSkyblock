@@ -1,5 +1,5 @@
 # libSkyblock
-A library made for easy interactions with Hypixel Skyblock items, players and much more. Contains many useful objects, methods and utilities for extracting data and presenting it in a pretty data form.
+A library made for easy interactions with Hypixel Skyblock items, players and much more. Contains many useful objects, methods and utilities for extracting data and presenting it in a pretty data form. `Forge 1.8.9`. Currently in development.
 
 ## Importing
 ```groovy
@@ -10,7 +10,7 @@ repositories {
 
 ```groovy
 dependencies {
-    implementation "studio.dreamys:libSkyblock:1.0.1"
+    implementation "studio.dreamys:libSkyblock:1.1.1"
 }
 ```
 
@@ -18,13 +18,21 @@ dependencies {
 > Initialize the class by passing in an ItemStack like so:
 ```java
 ItemStack stack = Minecraft.getMinecraft().thePlayer.getHeldItem();
-SBItem item = new SBItem(stack);
-//item.getReforge()
+SBItem i = new SBItem(stack);
+//i.getReforge()
 //...
 ```
 
-### Example of all functions
-![img.png](img/img.png)
-
 ## SBPlayer
-Currently, in development.
+> Initialize the class by passing in an EntityPlayer like so:
+```java
+EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+SBPlayer p = new SBPlayer(player);
+//p.getPurse()
+//...
+```
+
+## Demo
+> Refer to [TestMod](https://github.com/DxxxxY/libSkyblock/blob/master/src/main/java/studio/dreamys/test/TestMod.java) for this demo.
+
+![img.png](img/img.png)

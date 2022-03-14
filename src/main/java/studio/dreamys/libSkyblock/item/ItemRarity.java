@@ -1,7 +1,6 @@
 package studio.dreamys.libSkyblock.item;
 
 import net.minecraft.util.EnumChatFormatting;
-import org.apache.commons.lang3.text.WordUtils;
 import studio.dreamys.libSkyblock.util.StringUtils;
 
 public enum ItemRarity {

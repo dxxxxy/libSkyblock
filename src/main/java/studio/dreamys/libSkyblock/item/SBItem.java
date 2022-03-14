@@ -1,7 +1,6 @@
 package studio.dreamys.libSkyblock.item;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import javafx.util.Pair;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -41,7 +40,7 @@ public class SBItem {
 
                 Matcher rarityMatcher = Pattern.compile("§l(\\w+)").matcher(currentLine);
                 if (rarityMatcher.find()) {
-                    String rarity = rarityMatcher.group(0);
+                    String rarity = rarityMatcher.group(1);
 
                     for (ItemRarity itemRarity : ItemRarity.values()) {
                         //using startsWith because only VERY is matched in VERY SPECIAL
@@ -109,11 +108,11 @@ public class SBItem {
     }
 
     /**
-     * Gets the gems of the item as a {@link List<Pair>}.
+     * Gets the gems of the item as a {@link List<AbstractMap.SimpleEntry>}{@code <AbstractMap.SimpleEntry<K, V>>}.
      * <br>
-     * {@link List<Pair>}{@code <Pair<K>>} stores the name of the gem slot as a {@link String}.
+     * {@link List<AbstractMap.SimpleEntry>}{@code <AbstractMap.SimpleEntry<K>>} stores the name of the gem slot as a {@link String}.
      * <br>
-     * {@link List<Pair>}{@code <Pair<V>>} stores the tier of the gem as a {@link String}.<br><br>
+     * {@link List<AbstractMap.SimpleEntry>}{@code <AbstractMap.SimpleEntry<V>>} stores the tier of the gem as a {@link String}.<br><br>
      * Note: ambiguous gem slots are written differently.<br>
      * Example:<br>
      * "gems": {<br>
@@ -125,30 +124,30 @@ public class SBItem {
      * However, this method fixes that and only returns the names and tiers of the runes. This is done by waiting for the next occurence
      * of a gem entry and matching it to the previous using temporary storage.
      */
-    public List<Pair<String, String>> getGems() {
+    public List<AbstractMap.SimpleEntry<String, String>> getGems() {
         if (stack.hasTagCompound()) {
             NBTTagCompound tag = stack.getTagCompound();
             if (tag.hasKey("ExtraAttributes")) {
                 tag = tag.getCompoundTag("ExtraAttributes");
                 if (tag.hasKey("gems")) {
                     tag = tag.getCompoundTag("gems");
-                    List<Pair<String, String>> gems = new ArrayList<>();
-                    Pair<String, String> temp = new Pair<>("null", "null");
+                    List<AbstractMap.SimpleEntry<String, String>> gems = new ArrayList<>();
+                    AbstractMap.SimpleEntry<String, String> temp = new AbstractMap.SimpleEntry<>("null", "null");
                     for (String gem : tag.getKeySet()) {
                         //normally, ambiguous gems are right after each other
                         if (!Pattern.compile("RUBY|AMBER|SAPPHIRE|JADE|AMETHYST|TOPAZ|JASPER").matcher(gem).find()) {
                             //scans COMBAT_0_gem, JASPER
                             if (gem.startsWith(temp.getKey()) && gem.endsWith("_gem")) {
                                 //stores JASPER, FINE
-                                gems.add(new Pair<>(StringUtils.prettify(tag.getString(gem)), StringUtils.prettify(temp.getValue())));
-                                temp = new Pair<>("null", "null");
+                                gems.add(new AbstractMap.SimpleEntry<>(StringUtils.prettify(tag.getString(gem)), StringUtils.prettify(temp.getValue())));
+                                temp = new AbstractMap.SimpleEntry<>("null", "null");
                                 continue;
                             }
                             //stores COMBAT_0, FINE
-                            temp = new Pair<>(gem, tag.getString(gem));
+                            temp = new AbstractMap.SimpleEntry<>(gem, tag.getString(gem));
                             continue;
                         }
-                        gems.add(new Pair<>(StringUtils.prettify(gem.replaceAll("_(.*)", "")), StringUtils.prettify(tag.getString(gem))));
+                        gems.add(new AbstractMap.SimpleEntry<>(StringUtils.prettify(gem.replaceAll("_(.*)", "")), StringUtils.prettify(tag.getString(gem))));
                     }
                     return gems;
                 }
@@ -193,13 +192,13 @@ public class SBItem {
     }
 
     /**
-     * Gets the rune of the item as a {@link Pair}
+     * Gets the rune of the item as a {@link AbstractMap.SimpleEntry}{@code <K, V>}.
      * <br>
-     * {@link Pair#getKey()} returns the name of the rune as a {@code String}.
+     * {@link AbstractMap.SimpleEntry#getKey()} returns the name of the rune as a {@code String}.
      * <br>
-     * {@link Pair#getValue()} returns the tier/level of the rune as an {@code int}.
+     * {@link AbstractMap.SimpleEntry#getValue()} returns the tier/level of the rune as an {@code int}.
      */
-    public Pair<String, Integer> getRune() {
+    public AbstractMap.SimpleEntry<String, Integer> getRune() {
         if (stack.hasTagCompound()) {
             NBTTagCompound tag = stack.getTagCompound();
             if (tag.hasKey("ExtraAttributes")) {
@@ -216,7 +215,7 @@ public class SBItem {
                         tier = tag.getInteger(rune);
                     }
 
-                    return new Pair<>(StringUtils.prettify(type), tier);
+                    return new AbstractMap.SimpleEntry<>(StringUtils.prettify(type), tier);
                 }
             }
         }
@@ -364,7 +363,7 @@ public class SBItem {
     }
 
     /**
-     * Gets the enchantments of the item as a {@link HashMap}.
+     * Gets the enchantments of the item as a {@link HashMap}{@code <K, V>}.
      * <br>
      * {@link HashMap}{@code <K>} stores the name of the enchantment as a pretty {@link String}.
      * <br>
@@ -407,7 +406,7 @@ public class SBItem {
     }
 
     /**
-     * Checks if the item is a Drill.
+     * Checks if the item is a drill.
      */
     public boolean isDrill() {
         if (stack.hasTagCompound()) {
@@ -421,7 +420,7 @@ public class SBItem {
     }
 
     /**
-     * Get the original ItemStack that has been passed to this object.
+     * Gets the original ItemStack that has been passed to this object.
      * */
     public ItemStack getStack() {
         return stack;

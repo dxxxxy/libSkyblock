@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.scoreboard.ScoreObjective;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ServerUtils {
     /**
@@ -35,7 +37,7 @@ public class ServerUtils {
     /**
      * Checks if the player is in Dungeons.
      * */
-    public static boolean isOnDungeons() {
+    public static boolean isInDungeons() {
         if (isOnSkyblock()) {
             List<String> scoreboard = ScoreboardUtils.getSidebarLines();
             for (String s : scoreboard) {
@@ -48,8 +50,17 @@ public class ServerUtils {
         return false;
     }
 
-    public String getServerName() {
-
+    /**
+     * Gets the name of the server (ex: m677A)
+     * */
+    public static String getServerName() {
+        for (String score : ScoreboardUtils.getSidebarLines()) {
+            String target = ScoreboardUtils.cleanSB(score);
+            Matcher m = Pattern.compile("\\d{2}/\\d{2}/\\d{2} (.*)").matcher(target);
+            if (m.find()) {
+                return m.group(1);
+            }
+        }
         return null;
     }
 }
